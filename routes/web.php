@@ -18,13 +18,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes(['register' => false, 'reset' => false, 'confirm' => false]);
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::name('admin.')->group(function () {
+    Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/profile', 'ProfileController@index')->name('profile');
+    Route::put('/profile', 'ProfileController@update')->name('profile.update');
 
-Route::get('/profile', 'ProfileController@index')->name('profile');
-Route::put('/profile', 'ProfileController@update')->name('profile.update');
-
-Route::get('/about', function () {
-    return view('about');
-})->name('about');
+    // data master
+    Route::get('/tool/up', 'ToolController@up')->name('tool.up');
+    Route::name('master.')->group(function () {
+        Route::resource('laptop', 'LaptopController');
+    });
+});

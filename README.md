@@ -1,85 +1,39 @@
-# Laravel SB Admin 2
+# Decision Tree Study Kasus Pembelian Laptop
 
-SB Admin 2 for Laravel.
+## Resources
 
-| Laravel Version | Branch | Support     |
-|-----------------|--------|-------------|
-| 10.0            | main   |             |
-| 9.0             | v9.0   |             |
-| 8.0             | v8.0   | End of life |
-| 7.0             | v7.0   | End of life |
-| 6.0             | v6.0   | End of life |
-| 5.8             | v5.8   | End of life |
+-   [Datasheet](https://github.com/37Degrees/DataSets/blob/master/laptops.csv)
 
-## Requirements
+## Deploy
 
-- PHP >= 8.1
-- Ctype PHP Extension
-- cURL PHP Extension
-- DOM PHP Extension
-- Fileinfo PHP Extension
-- Filter PHP Extension
-- Hash PHP Extension
-- Mbstring PHP Extension
-- OpenSSL PHP Extension
-- PCRE PHP Extension
-- PDO PHP Extension
-- Session PHP Extension
-- Tokenizer PHP Extension
-- XML PHP Extension
+1. Clone this repository
 
-## Installation
+```sh
+git clone https://github.com/defrindr/2023-penjualan-laptop.git
+```
 
-- Clone the repo and `cd` into it
-- Run `composer install`
-- Rename or copy `.env.example` file to `.env`
-- Run `php artisan key:generate`
-- Set your database credentials in your `.env` file
+2. Install dependecies
 
-## Note
+```sh
+composer install
+```
 
-Recommend to install this preset on a project that you are starting from scratch, otherwise your project's design might break.
+3. Copy .env & setup environment
 
-If you found this project useful, then please consider giving it a :star:
+4. Generate key
 
-## Credits
+```sh
+php artisan key:generate
+```
 
-Laravel SB Admin 2 uses some open-source third-party libraries/packages, many thanks to the web community.
+5. Running migration
 
-- Laravel - Open source framework.
-- LaravelEasyNav - Making managing navigation in Laravel easy.
-- SB Admin 2 - Thanks to Start Bootstrap.
+```sh
+php artisan migrate:fresh --seed
+```
 
-## Preview
+6. Ruuning server
 
-`login`
-
-<img src="https://imgur.com/YjGp6Sbl.png">
-
-***
-
-`register`
-
-<img src="https://imgur.com/Wj09cu4l.png">
-
-***
-
-`dashboard`
-
-<img src="https://imgur.com/CrmOfT5l.png">
-
-***
-
-`profile`
-
-<img src="https://imgur.com/5t4eS1rl.png">
-
-***
-
-`logout`
-
-<img src="https://imgur.com/d9JclOYl.png">
-
-## License
-
-Licensed under the [MIT](LICENSE) license.
+```sh
+php artisan serve
+```
