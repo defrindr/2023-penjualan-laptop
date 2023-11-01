@@ -101,14 +101,18 @@ class DecisionTree
           null
         ],
         [
-          self::createNode(
-            'Apakah budget anda lebih dari 15 Jt ?',
-            [
-              self::gte('price', 15000000),
-              self::lt('price', 15000000),
-            ],
-          ),
-          // null,
+          /**
+           * Untuk menambahkan pertanyaan silahkan buka doke yang di comment dan comment tipe data null
+           */
+
+          // self::createNode(
+          //   'Apakah budget anda lebih dari 15 Jt ?',
+          //   [
+          //     self::gte('price', 15000000),
+          //     self::lt('price', 15000000),
+          //   ],
+          // ),
+          null,
           self::createNode(
             'Apakah anda peduli dengan brand ?',
             [
@@ -125,6 +129,12 @@ class DecisionTree
     ];
   }
 
+  /**
+   * @param string $question Pertanyaan yang akan ditampilkan ke user
+   * @param array $options [0] untuk jawaban Ya, dan [1] untuk jawaban tidak
+   * @param array $childs [0] untuk jawaban Ya, dan [1] untuk jawaban tidak, jika null berarti sudah selesai
+   * @return array
+   */
   public static function createNode(string $question, array $options = null, array $childs = null)
   {
     $obj = [

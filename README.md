@@ -3,6 +3,7 @@
 ## Resources
 
 -   [Datasheet](https://github.com/37Degrees/DataSets/blob/master/laptops.csv)
+-   [Modifikasi Decision Tree](./documentation/modify-classification.md)
 
 ## Deploy
 
