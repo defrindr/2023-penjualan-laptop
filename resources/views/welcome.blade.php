@@ -70,6 +70,7 @@
     <div class="flex-center position-ref full-height">
         @if (Route::has('login'))
             <div class="top-right links">
+                <a href="{{ route('filter.view') }}">Filter</a>
                 <a href="{{ route('classification.view') }}">Analisa</a>
                 @auth
                     <a href="{{ url('/home') }}">Home</a>

@@ -21,6 +21,9 @@ Route::get('/', function () {
 Route::get('/classification', 'ClassificationController@index')->name('classification.view');
 Route::post('/classification/analyst', 'ClassificationController@analyst')->name('classification.analyst');
 
+Route::get('/filter', 'ClassificationController@filter')->name('filter.view');
+Route::post('/filter/analyst', 'ClassificationController@filterAnalyst')->name('filter.analyst');
+
 Auth::routes(['register' => false, 'reset' => false, 'confirm' => false]);
 
 Route::name('admin.')->group(function () {
