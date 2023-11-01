@@ -81,7 +81,7 @@
                                         <td>{{ $laptop->operating_system }}</td>
                                         <td>{{ $laptop->operating_system_version }}</td>
                                         <td>{{ $laptop->weightLabel }}</td>
-                                        <td>{{ $laptop->price_idr }}</td>
+                                        <td>{{ $laptop->priceIdr }}</td>
                                         <td>
                                             <button class="btnEdit btn btn-warning mb-1 mr-1"
                                                 data-id="{{ $laptop->id }}">
@@ -257,7 +257,6 @@
 
         let form = document.querySelector('#formCreate');
 
-
         const insertNewData = async (body) => {
             try {
                 let response = await fetch("{{ route('admin.master.laptop.store') }}", {
@@ -333,7 +332,7 @@
         btnOpenModalCreate.on('click', function() {
             $('#create-field-id').val('');
             $('#modalCreate').modal('show');
-        })
+        });
 
         btnSave.on('click', function() {
             let payload = new FormData(form);
@@ -344,11 +343,11 @@
             } else {
                 insertNewData(payload)
             }
-        })
+        });
 
         $('.btnEdit').on('click', function(event) {
             let id = $(this).data('id');
             getData(id)
-        })
+        });
     </script>
 @endsection

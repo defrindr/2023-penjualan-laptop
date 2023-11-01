@@ -18,6 +18,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/classification', 'ClassificationController@index')->name('classification.view');
+Route::post('/classification/analyst', 'ClassificationController@analyst')->name('classification.analyst');
+
 Auth::routes(['register' => false, 'reset' => false, 'confirm' => false]);
 
 Route::name('admin.')->group(function () {
