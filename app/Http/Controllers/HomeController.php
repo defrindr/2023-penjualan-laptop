@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Laptop;
 use App\Models\User;
 
 class HomeController extends Controller
@@ -24,9 +25,11 @@ class HomeController extends Controller
     public function index()
     {
         $users = User::count();
+        $laptops = Laptop::count();
 
         $widget = [
             'users' => $users,
+            'laptops' => $laptops,
             //...
         ];
 

@@ -30,8 +30,11 @@ class ClassificationController extends Controller
     {
         $categories = LaptopConstant::listCategories();
         $manufacturers = LaptopConstant::listManufacturers();
+        $screenSizes = Laptop::distinct()->orderBy('screen_size')->pluck('screen_size')->all();
+        $cpus = Laptop::distinct()->orderBy('cpu')->pluck('cpu')->all();
+        $storages = Laptop::distinct()->orderBy('storage')->pluck('storage')->all();
 
-        return view('pages.guest.filter', compact('categories', 'manufacturers'));
+        return view('pages.guest.filter', compact('categories', 'manufacturers', 'screenSizes', 'cpus', 'storages'));
     }
 
     public function filterAnalyst(Request $request)
@@ -57,6 +60,18 @@ class ClassificationController extends Controller
 
         if ($request->has('ram') && $request->get('ram')) {
             $qb->where('ram', $request->get('ram'));
+        }
+
+        if ($request->has('storage') && $request->get('storage')) {
+            $qb->whereIn('storage', $request->get('storage'));
+        }
+
+        if ($request->has('screen_size') && $request->get('screen_size')) {
+            $qb->whereIn('screen_size', $request->get('screen_size'));
+        }
+
+        if ($request->has('cpu') && $request->get('cpu')) {
+            $qb->whereIn('cpu', $request->get('cpu'));
         }
 
         sleep(2);

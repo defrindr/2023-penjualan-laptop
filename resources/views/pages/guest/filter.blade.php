@@ -23,12 +23,18 @@
 <body>
     <div class="container-fluid mt-3">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-4 col-xs-12">
                 <div class="card card-default mb-4">
                     <div class="card-header">
                         <h3>Decision Tree, Rekomendasi Pembelian Laptop</h3>
                     </div>
                     <div class="card-body">
+
+                        <div>
+                            <button id="btnSearch" class="btn btn-success d-block w-100">
+                                <i class="fa fa-check"></i> Cari
+                            </button>
+                        </div>
                         <form id="form-search" action="">
                             <div class="row">
                                 <div class="col-md-6">
@@ -50,28 +56,53 @@
                                     @endforeach
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group mb-2">
                                 <label for="">Harga Minumum</label>
                                 <input type="number" name="minimum_price" value="" class="form-control">
                             </div>
-                            <div class="form-group">
+                            <div class="form-group mb-2">
                                 <label for="">Harga maksimum</label>
                                 <input type="number" name="maximum_price" value="" class="form-control">
                             </div>
-                            <div class="form-group">
+                            <div class="form-group mb-2">
                                 <label for="">RAM</label>
                                 <input type="number" name="ram" value="" class="form-control">
                             </div>
+                            <div class="row">
+
+                                <div class="col-md-12 mb-2">
+                                    <h3>Ukuran Layar</h3>
+                                    @foreach ($screenSizes as $size)
+                                        <div class="form-group">
+                                            <input type="checkbox" name="screen_size[]" value="{{ $size }}">
+                                            <label for="">{{ $size }} Inch</label>
+                                        </div>
+                                    @endforeach
+                                </div>
+                                <div class="col-md-12 mb-2">
+                                    <h3>CPU</h3>
+                                    @foreach ($cpus as $cpu)
+                                        <div class="form-group">
+                                            <input type="checkbox" name="cpu[]" value="{{ $cpu }}">
+                                            <label for="">{{ $cpu }}</label>
+                                        </div>
+                                    @endforeach
+                                </div>
+                                <div class="col-md-12 mb-2">
+                                    <h3>Penyimpanan</h3>
+                                    @foreach ($storages as $storage)
+                                        <div class="form-group">
+                                            <input type="checkbox" name="storage[]" value="{{ $storage }}">
+                                            <label for="">{{ $storage }}</label>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
                         </form>
-                        <div>
-                            <button id="btnSearch" class="btn btn-success">
-                                <i class="fa fa-check"></i> Cari
-                            </button>
-                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-8 col-xs-12">
                 <div class="card card-default mb-4">
                     <div class="card-header">
                         <h3>Hasil Klasifikasi</h3>
