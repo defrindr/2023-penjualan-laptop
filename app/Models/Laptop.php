@@ -38,22 +38,25 @@ class Laptop extends Model
     public static function insertNewData($item)
     {
         $itemWithSpecificKey = [
-            'manufacturer'             => $item[0],
-            'model_name'               => $item[1],
-            'category'                 => $item[2],
-            'screen_size'              => floatval($item[3]),
-            'screen'                   => $item[4],
-            'cpu'                      => $item[5],
-            'ram'                      => intval($item[6]),
-            'storage'                  => $item[7],
-            'gpu'                      => $item[8],
-            'operating_system'         => $item[9],
+            'manufacturer' => $item[0],
+            'model_name' => $item[1],
+            'category' => $item[2],
+            'screen_size' => floatval($item[3]),
+            'screen' => $item[4],
+            'cpu' => $item[5],
+            'ram' => intval($item[6]),
+            'storage' => $item[7],
+            'gpu' => $item[8],
+            'operating_system' => $item[9],
             'operating_system_version' => $item[10],
-            'weight'                   => floatval($item[11]),
-            'price'                    => self::convertEuroToIdr($item[12]),
+            'weight' => floatval($item[11]),
+            'price' => self::convertEuroToIdr($item[12]),
         ];
 
-        if (self::create($itemWithSpecificKey)) return true;
+        if (self::create($itemWithSpecificKey)) {
+            return true;
+        }
+
         return false;
     }
 
@@ -64,20 +67,19 @@ class Laptop extends Model
         return intval($euro) * $kurs;
     }
 
-
     public function getPriceIdrAttribute()
     {
-        return "Rp " . number_format($this->price ?? 0);
+        return 'Rp '.number_format($this->price ?? 0);
     }
 
     public function getWeightLabelAttribute()
     {
-        return $this->weight . " KG";
+        return $this->weight.' KG';
     }
 
     public function getRamLabelAttribute()
     {
-        return $this->ram . " GB";
+        return $this->ram.' GB';
     }
 
     public function setOperatingSystemVersionAttribute($value)
