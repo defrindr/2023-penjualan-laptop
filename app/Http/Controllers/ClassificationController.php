@@ -74,6 +74,12 @@ class ClassificationController extends Controller
             $qb->whereIn('cpu', $request->get('cpu'));
         }
 
+
+
+        if ($request->has('order') && $request->get('order')) {
+            $qb->orderBy('price', $request->get('order'));
+        }
+
         sleep(2);
 
         $response = $qb->get();

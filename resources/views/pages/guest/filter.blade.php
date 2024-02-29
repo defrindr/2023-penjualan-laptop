@@ -18,6 +18,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -123,7 +126,12 @@
                                     <th>Sistem Operasi</th>
                                     <th>Versi S.O</th>
                                     <th>Berat</th>
-                                    <th>Harga</th>
+                                    <th id="sort">
+                                        Harga
+                                        <span id="orderBy" data-value="asc">
+                                            <i class="fa fa-chevron-down"></i>
+                                        </span>
+                                    </th>
                                 </thead>
                                 <tbody id="table-result">
                                 </tbody>
@@ -184,12 +192,29 @@
         }
     }
 
+    const changeSort = () => {
+        let currentValue = document.getElementById('orderBy').getAttribute('data-value');
+        if (currentValue === 'asc') {
+            document.getElementById('orderBy').innerHTML = '<i class="fa fa-chevron-up"></i>';
+            document.getElementById('orderBy').setAttribute('data-value', 'desc');
+        } else {
+            document.getElementById('orderBy').innerHTML = '<i class="fa fa-chevron-down"></i>';
+            document.getElementById('orderBy').setAttribute('data-value', 'asc');
+        }
 
-    btnSearch.addEventListener('click', function() {
+        RequestForm();
+    }
+
+
+    const RequestForm = () => {
         let form = new FormData(document.querySelector('#form-search'))
-
+        form.append('order', document.getElementById('orderBy').getAttribute('data-value'))
         analystAnswer(form);
-    })
+    }
+
+    btnSearch.addEventListener('click', RequestForm);
+
+    document.getElementById('sort').addEventListener('click', changeSort)
 </script>
 
 </html>
