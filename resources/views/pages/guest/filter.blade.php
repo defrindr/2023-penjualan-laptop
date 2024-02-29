@@ -141,6 +141,21 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p>
+                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                        Show Code
+                    </button>
+                </p>
+                <div class="collapse" id="collapseExample">
+                    <div class="card card-body">
+                        {{ show_source(app_path('Http/Controllers/ClassificationController.php')) }}
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 
