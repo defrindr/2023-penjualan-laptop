@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\DecisionTree;
+use App\Helpers\DecisionTreeClassifier;
 use App\Helpers\LaptopConstant;
 use App\Http\Resources\LaptopResource;
 use App\Models\Laptop;
@@ -10,22 +11,6 @@ use Illuminate\Http\Request;
 
 class ClassificationController extends Controller
 {
-    public function index()
-    {
-        $questions = DecisionTree::questions();
-
-        return view('pages.guest.classification', compact('questions'));
-    }
-
-    public function analyst(Request $request)
-    {
-
-        $response = DecisionTree::result($request->get('answers'));
-        sleep(2);
-
-        return response()->json(['items' => LaptopResource::collection($response)]);
-    }
-
     public function filter()
     {
         $categories = LaptopConstant::listCategories();
@@ -40,50 +25,52 @@ class ClassificationController extends Controller
     public function filterAnalyst(Request $request)
     {
 
-        $qb = Laptop::query();
+        $dataSet = Laptop::all();
 
+        $classification = new DecisionTreeClassifier();
+        $classification->fit($dataSet);
+        $response = $classification->predict(
+            $this->build($request)
+        );
+
+        return response()->json(['items' => LaptopResource::collection($response)]);
+    }
+
+    protected function build(Request $request)
+    {
+        $filter = [];
         if ($request->has('manufactur')) {
-            $qb->whereIn('manufacturer', $request->get('manufactur'));
+            $filter['manufacturer'] = $request->get('manufactur');
         }
 
         if ($request->has('categories')) {
-            $qb->whereIn('category', $request->get('categories'));
+            $filter['category'] = $request->get('categories');
         }
 
         if ($request->has('minimum_price') && $request->get('minimum_price')) {
-            $qb->where('price', '>', $request->get('minimum_price'));
+            $filter['price'] = $request->get('minimum_price');
         }
 
         if ($request->has('maximum_price') && $request->get('maximum_price')) {
-            $qb->where('price', '<=', $request->get('maximum_price'));
+            $filter['price'] = $request->get('maximum_price');
         }
 
         if ($request->has('ram') && $request->get('ram')) {
-            $qb->where('ram', $request->get('ram'));
+            $filter['ram'] = $request->get('ram');
         }
 
         if ($request->has('storage') && $request->get('storage')) {
-            $qb->whereIn('storage', $request->get('storage'));
+            $filter['storage'] = $request->get('storage');
         }
 
         if ($request->has('screen_size') && $request->get('screen_size')) {
-            $qb->whereIn('screen_size', $request->get('screen_size'));
+            $filter['screen_size'] = $request->get('screen_size');
         }
 
         if ($request->has('cpu') && $request->get('cpu')) {
-            $qb->whereIn('cpu', $request->get('cpu'));
+            $filter['cpu'] = $request->get('cpu');
         }
 
-
-
-        if ($request->has('order') && $request->get('order')) {
-            $qb->orderBy('price', $request->get('order'));
-        }
-
-        sleep(2);
-
-        $response = $qb->get();
-
-        return response()->json(['items' => LaptopResource::collection($response)]);
+        return $filter;
     }
 }
